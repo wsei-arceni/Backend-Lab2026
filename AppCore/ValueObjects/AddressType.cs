@@ -1,6 +1,6 @@
 ﻿namespace AppCore.ValueObjects;
 
-public enum AdressType
+public enum AddressType
 {
     Main, Correspondence, Delivery, Billing
 }
