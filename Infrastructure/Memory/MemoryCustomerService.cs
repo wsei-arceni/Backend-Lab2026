@@ -12,8 +12,8 @@ public class MemoryCustomerService: ICustomerService
         new Customer()
         {
             Id = 1,
-            FirstName = "John",
-            LastName = "Doe",
+            FirstName = "Joey",
+            LastName = "Drew",
             Email = "Jo.D@mail.com",
             Phone = "123456789",
             AddressId = 1
@@ -21,9 +21,9 @@ public class MemoryCustomerService: ICustomerService
         new Customer()
         {
             Id = 2,
-            FirstName = "Jane",
-            LastName = "Doe",
-            Email = "Ja.D@mail.com",
+            FirstName = "William",
+            LastName = "Afton",
+            Email = "Will.Afton@mail.com",
             Phone = "987654321",
             AddressId = 2
         }
