@@ -3,41 +3,43 @@ using AppCore.Interfaces;
 
 namespace Infrastructure.Memory;
 
-public class MemoryGenericRepository<T> : IGenericRepositoryAsync<T>
-    where T : class
+public class MemoryGenericRepository<T>: IGenericRepositoryAsync<T> where T: class 
 {
+    protected Dictionary<Guid, T> _data = new();
+    
     public Task<T?> GetByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task<T?> FindByIdAsync(Guid id)
-    {
-        throw new NotImplementedException();
+        var result = _data.TryGetValue(id, out var value) ? value : null;
+        return Task.FromResult(result);
     }
 
     public Task<IEnumerable<T>> FindAllAsync()
     {
-        throw new NotImplementedException();
+        IEnumerable<T> result = _data.Values.ToList();
+        return Task.FromResult(result);
     }
 
     public Task<PagedResult<T>> FindPagedAsync(int page, int pageSize)
     {
-        throw new NotImplementedException();
+        var result = _data.Values.ToList();
+        return Task.FromResult(new PagedResult<T>(result, result.Count, page, pageSize));
     }
 
     public Task<T> AddAsync(T entity)
     {
-        throw new NotImplementedException();
+        var id = Guid.NewGuid();
+        _data[id] = entity;
+        return Task.FromResult(_data[id]);
     }
 
     public Task<T> UpdateAsync(T entity)
     {
-        throw new NotImplementedException();
+        throw new NotImplementedException(); /* TODO: implement */
     }
 
     public Task RemoveByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var result = _data.Remove(id);
+        return Task.FromResult(result);
     }
 }
