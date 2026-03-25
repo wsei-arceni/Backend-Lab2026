@@ -34,7 +34,7 @@ public class MemoryGenericRepository<T>: IGenericRepositoryAsync<T> where T: cla
 
     public Task<T> UpdateAsync(T entity)
     {
-        /* TODO: What UpdateAsync have to do */
+        /* TODO: What UpdateAsync have to do (Lab 2) */
         throw new NotImplementedException();
     }
 

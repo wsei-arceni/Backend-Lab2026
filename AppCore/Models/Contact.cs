@@ -16,7 +16,7 @@ public abstract class Contact
 
     public string GetDisplayName()
     {
-        /* TODO: Class don't have Name */
+        /* TODO: Class don't have Name (Lab 2) */
         throw new NotImplementedException();
     }
 }

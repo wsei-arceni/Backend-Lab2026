@@ -13,7 +13,8 @@ public abstract record ContactBaseDto
     public List<string> Tags { get; init; } = new();
     public DateTime CreatedAt { get; init; }
 
-/* TODO: Is Contact have to be abstract. Or have to be created ContactBase and used instead Contact (supposed) */
+/* TODO: Is Contact have to be abstract. Or have to be created ContactBase and used instead Contact (supposed) (Lab 3) */
+/* TODO: Create mappings for rest classes (Lab 3) */
 public static ContactBaseDto FromEntity(Contact contact) => new()
 {
     Id = contact.Id,
