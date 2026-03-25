@@ -32,6 +32,6 @@ public class MemoryCustomerService: ICustomerService
 
     public Task<IEnumerable<Customer>> GetCustomersAsync()
     {
-        throw new NotImplementedException();
+        return Task.FromResult(GetCustomers());
     }
 }

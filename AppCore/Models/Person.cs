@@ -15,6 +15,6 @@ public class Person: Contact
 
     public string GetDisplayName()
     {
-        throw new NotImplementedException();
+        return $"{FirstName} {MiddleName} {LastName}";
     }
 }

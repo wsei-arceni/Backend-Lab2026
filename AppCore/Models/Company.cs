@@ -15,6 +15,6 @@ public class Company: Contact
 
     public string GetDisplayName()
     {
-        throw new NotImplementedException();
+        return Name;
     }
 }
