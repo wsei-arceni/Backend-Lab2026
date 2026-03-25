@@ -7,16 +7,16 @@ public class MemoryCompanyRepository: MemoryGenericRepository<Company>, ICompany
 {
     public List<Company> GetCompaniesByName(string name)
     {
-        throw new NotImplementedException();
+        return _data.Values.Where(c => c.Name.Contains(name)).ToList();
     }
 
     public Company GetCompanyByNIP(string nip)
     {
-        throw new NotImplementedException();
+        return _data.Values.Where(c => c.NIP == nip).FirstOrDefault();
     }
 
     public List<Person> GetCompanyMembers(Company company)
     {
-        throw new NotImplementedException();
+        return _data[company.Id].Employees;
     }
 }

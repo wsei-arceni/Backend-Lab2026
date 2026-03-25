@@ -8,8 +8,8 @@ public class MemoryPersonService(IContactUnitOfWork unitOfWork) : IPersonService
 {
     public async Task<PagedResult<PersonDto>> FindAllPeoplePaged(int page, int size)
     {
-        var poeple = await unitOfWork.Persons.FindPagedAsync(page, size);
-        var items=  poeple.Items.Select(p => new PersonDto()
+        var people = await unitOfWork.Persons.FindPagedAsync(page, size);
+        var items=  people.Items.Select(p => new PersonDto()
             {
                 Id = p.Id,
                 FirstName = p.FirstName,
@@ -20,12 +20,12 @@ public class MemoryPersonService(IContactUnitOfWork unitOfWork) : IPersonService
             }
                 
         );
-        return new PagedResult<PersonDto>(, poeple.TotalCount, poeple.Page, poeple.PageSize);
+        return new PagedResult<PersonDto>(items.ToList(), people.TotalCount, people.Page, people.PageSize);
     }
 
     public async Task<IAsyncEnumerable<PersonDto>> FindPeopleFromCompany(Guid companyId)
     {
-        // implementacja
+        throw new NotImplementedException();
     }
 
     public Task<Person> CreatePerson(PersonDto personDto)

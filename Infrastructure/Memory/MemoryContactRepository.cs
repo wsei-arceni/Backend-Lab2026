@@ -8,7 +8,7 @@ public class MemoryContactRepository: MemoryGenericRepository<Contact>, IContact
 {
     public PagedResult<Contact> FindContactByDto(ContactSearchDto dto)
     {
-        throw new NotImplementedException();
+        var result = _data.
     }
 
     public Contact FindByTag(Tag tag)
