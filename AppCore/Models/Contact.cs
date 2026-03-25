@@ -16,6 +16,7 @@ public abstract class Contact
 
     public string GetDisplayName()
     {
+        /* TODO: Class don't have Name */
         throw new NotImplementedException();
     }
 }
