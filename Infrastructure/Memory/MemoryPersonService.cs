@@ -35,7 +35,6 @@ public class MemoryPersonService(IContactUnitOfWork unitOfWork) : IPersonService
 
     public Task<Person> UpdatePerson(PersonDto personDto)
     {
-        /* TODO: What UpdatePerson have to do (Lab 3,2) */
         throw new NotImplementedException();
     }
 

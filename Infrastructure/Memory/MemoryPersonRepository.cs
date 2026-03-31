@@ -8,9 +8,7 @@ public class MemoryPersonRepository: MemoryGenericRepository<Person>, IPersonRep
 {
     public Task<IEnumerable<Person>> GetByEmployerAsync(Guid companyId)
     {
-        /* TODO: Person don't have Employer field (Lab 3) */
-        // return Task.FromResult(_data.Values.Where(p => p.Employer != null && p.Employer.Id == companyId));
-        throw new NotImplementedException();
+        return Task.FromResult(_data.Values.Where(p => p.Employer != null && p.Employer.Id == companyId));
     }
 
     public Task<IEnumerable<Person>> GetByOrganizationAsync(Guid organizationId)
@@ -25,7 +23,7 @@ public class MemoryPersonRepository: MemoryGenericRepository<Person>, IPersonRep
 
     public List<Person> GetPersonsByCompany(Company company)
     {
-        return _data.Values.Where(p => p.Company == company).ToList();
+        throw new NotImplementedException();
     }
 
     public List<Person> GetPersonsByOrganization(Organization organization)

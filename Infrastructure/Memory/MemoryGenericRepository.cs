@@ -1,9 +1,10 @@
 ﻿using AppCore.Dto;
 using AppCore.Interfaces;
+using AppCore.Models;
 
 namespace Infrastructure.Memory;
 
-public class MemoryGenericRepository<T>: IGenericRepositoryAsync<T> where T: class 
+public class MemoryGenericRepository<T>: IGenericRepositoryAsync<T> where T: EntityBase 
 {
     protected Dictionary<Guid, T> _data = new();
     
@@ -34,8 +35,12 @@ public class MemoryGenericRepository<T>: IGenericRepositoryAsync<T> where T: cla
 
     public Task<T> UpdateAsync(T entity)
     {
-        /* TODO: What UpdateAsync have to do (Lab 2) */
-        throw new NotImplementedException();
+        if (_data.ContainsKey(entity.Id))
+        {
+            _data[entity.Id] = entity;
+            return Task.FromResult(_data[entity.Id]);
+        }
+        throw new KeyNotFoundException();
     }
 
     public Task RemoveByIdAsync(Guid id)

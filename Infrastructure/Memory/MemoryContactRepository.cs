@@ -8,7 +8,8 @@ public class MemoryContactRepository: MemoryGenericRepository<Contact>, IContact
 {
     public PagedResult<Contact> FindContactByDto(ContactSearchDto dto)
     {
-        var result = _data.
+        var result = _data.Values.Where(ct => dto.Query.Contains(ct.Email));
+        throw new NotImplementedException();
     }
 
     public Contact FindByTag(Tag tag)

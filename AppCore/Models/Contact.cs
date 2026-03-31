@@ -2,9 +2,8 @@
 
 namespace AppCore.Models;
 
-public abstract class Contact
+public abstract class Contact: EntityBase
 {
-    public Guid Id { get; set; }
     public string Email { get; set; }
     public string Phone { get; set; }
     public Address Address { get; set; }
@@ -13,25 +12,17 @@ public abstract class Contact
     public ContactStatus Status { get; set; }
     public List<Tag> Tags { get; set; }
     public List<Note> Notes { get; set; }
-
-    public string GetDisplayName()
-    {
-        /* TODO: Class don't have Name (Lab 2) */
-        throw new NotImplementedException();
-    }
 }
 
-public class Note
+public class Note: EntityBase
 {
-    public Guid Id { get; set; }
     public string Content { get; set; }
     public DateTime CreatedAt { get; set; }
     public string CreatedBy { get; set; }
 }
 
-public class Tag
+public class Tag: EntityBase
 {
-    public Guid Id { get; set; }
     public string Name { get; set; }
     public string Color { get; set; }
 }
