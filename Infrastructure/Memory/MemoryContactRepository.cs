@@ -9,31 +9,31 @@ public class MemoryContactRepository: MemoryGenericRepository<Contact>, IContact
     public PagedResult<Contact> FindContactByDto(ContactSearchDto dto)
     {
         var result = _data.Values.Where(ct => dto.Query.Contains(ct.Email));
-        throw new NotImplementedException();
+        return new PagedResult<Contact>(result.ToList(), result.Count(), dto.Page, dto.PageSize);
     }
 
     public Contact FindByTag(Tag tag)
     {
-        throw new NotImplementedException();
+        return _data.Values.FirstOrDefault(ct => ct.Tags.Contains(tag));;
     }
 
     public void AddNote(Guid id, Note note)
     {
-        throw new NotImplementedException();
+        _data[id].Notes.Add(note);
     }
 
     public List<Note> GetNotes(Guid id)
     {
-        throw new NotImplementedException();
+        return _data.Values.FirstOrDefault(ct => ct.Id == id).Notes;
     }
 
     public void AddTag(Guid id, Tag tag)
     {
-        throw new NotImplementedException();
+        _data[id].Tags.Add(tag);
     }
 
     public void RemoveTag(Guid id, Tag tag)
     {
-        throw new NotImplementedException();
+        _data[id].Tags.Remove(tag);
     }
 }

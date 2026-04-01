@@ -16,6 +16,9 @@ public record PersonDto : ContactBaseDto
     {
         FirstName = person.FirstName,
         LastName = person.LastName,
+        Position = person.Position,
+        BirthDate = person.BirthDate,
+        Gender = person.Gender,
     };
 }
 
@@ -38,6 +41,8 @@ public record CreatePersonDto(
             FirstName = FirstName,
             LastName = LastName,
             Email = Email,
+            Phone = Phone,
+            BirthDate = BirthDate,
             Address = new Address()
             {
                 City = Address?.City,
