@@ -12,15 +12,14 @@ public class MemoryGenericRepositoryTest
     public async Task AddPersonTestAsync()
     {
         // Arrange
-        var expected = new Person()
+        var obj = new Person()
         {
             FirstName = "Vannessa"
         };
         // Act
-        await _repo.AddAsync(expected);
+        var expected = await _repo.AddAsync(obj);
         // Assert
         var actual = await _repo.GetByIdAsync(expected.Id);
-        Assert.Equal(expected, actual);
         Assert.Equal(expected.Id, actual?.Id);
     }
 

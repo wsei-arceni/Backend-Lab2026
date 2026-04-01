@@ -28,9 +28,9 @@ public class MemoryGenericRepository<T>: IGenericRepositoryAsync<T> where T: Ent
 
     public Task<T> AddAsync(T entity)
     {
-        var id = Guid.NewGuid();
-        _data[id] = entity;
-        return Task.FromResult(_data[id]);
+        entity.Id = Guid.NewGuid();
+        _data[entity.Id] = entity;
+        return Task.FromResult(_data[entity.Id]);
     }
 
     public Task<T> UpdateAsync(T entity)
