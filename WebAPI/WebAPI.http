@@ -26,3 +26,17 @@ Content-Type: application/json
   "firstName": "Albert",
   "lastName" : "Coval"
 }
+
+###
+
+POST {{WebApi_HostAddress}}/api/contacts/3d54091d-abc8-49ec-9590-93ad3ed5458f/notes
+Content-Type: application/json
+
+{
+  "content": "New note"
+}
+###
+GET {{WebApi_HostAddress}}/api/contacts/3d54091d-abc8-49ec-9590-93ad3ed5458f/notes
+Content-Type: application/json
+
+###

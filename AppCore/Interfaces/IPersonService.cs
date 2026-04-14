@@ -5,7 +5,7 @@ namespace AppCore.Interfaces;
 
 public interface IPersonService
 {
-    Task<PersonDto?> GetById(Guid id);
+    Task<Person> GetById(Guid id);
     //TODO: Similar methods? (Lab5)
     Task<PersonDto> GetPerson(Guid personId);
     Task<PagedResult<PersonDto>> FindAllPeoplePaged(int page, int size);

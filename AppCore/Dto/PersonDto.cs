@@ -34,7 +34,6 @@ public record CreatePersonDto(
     AddressDto? Address
 )
 {
-    // TODO: ToEntity only for CreatePersonDto?
     public Person ToEntity()
     {
         return new Person

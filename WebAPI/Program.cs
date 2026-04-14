@@ -14,6 +14,9 @@ public class Program
         builder.Services.AddContactsModule(builder.Configuration);
         builder.Services.AddControllers();
         
+        builder.Services.AddExceptionHandler<ProblemDetailsExceptionHandler>();    
+        builder.Services.AddProblemDetails();
+        
         builder.Services.AddControllers();
         
         // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -27,6 +30,8 @@ public class Program
             app.MapOpenApi();
         }
         
+        app.UseExceptionHandler();  
+        app.MapControllers();
         app.UseHttpsRedirection();
         app.UseAuthorization();
         app.MapControllers();
