@@ -1,4 +1,5 @@
 using AppCore.Interfaces;
+using AppCore.Module;
 using Infrastructure.Memory;
 
 namespace WebAPI;
@@ -8,6 +9,10 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+        
+        builder.Services.AddAuthorization();
+        builder.Services.AddContactsModule(builder.Configuration);
+        builder.Services.AddControllers();
         
         builder.Services.AddControllers();
         

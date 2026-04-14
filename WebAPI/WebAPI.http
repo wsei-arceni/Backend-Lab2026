@@ -1,6 +1,28 @@
-@WebAPI_HostAddress = http://localhost:5243
+@WebApi_HostAddress = http://localhost:5243
 
-GET {{WebAPI_HostAddress}}/weatherforecast/
+GET {{WebApi_HostAddress}}/api/contacts
 Accept: application/json
 
 ###
+GET {{WebApi_HostAddress}}/api/contacts/"wstaw znany guid"
+Accept: application/json
+
+###
+POST {{WebApi_HostAddress}}/api/contacts
+Content-Type: application/json
+
+{
+  "firstName": "Albert",
+  "lastName" : "Coval",
+  "Email": "Albert@wsei.edu.pl",
+  "phone": "+48451514165"
+}
+###
+
+POST {{WebApi_HostAddress}}/api/contacts
+Content-Type: application/json
+
+{
+  "firstName": "Albert",
+  "lastName" : "Coval"
+}
