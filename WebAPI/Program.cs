@@ -1,5 +1,6 @@
 using AppCore.Interfaces;
 using AppCore.Module;
+using FluentValidation.AspNetCore;
 using Infrastructure.Memory;
 
 namespace WebAPI;
@@ -12,7 +13,14 @@ public class Program
         
         builder.Services.AddAuthorization();
         builder.Services.AddContactsModule(builder.Configuration);
-        builder.Services.AddControllers();
+        builder.Services.AddMemoryCache();
+        
+        builder.Services.AddScoped<ICompanyRepository, MemoryCompanyRepository>();
+        builder.Services.AddScoped<IContactRepository, MemoryContactRepository>();
+        builder.Services.AddScoped<IContactUnitOfWork, MemoryContactUnitOfWork>();
+        builder.Services.AddScoped<IPersonRepository, MemoryPersonRepository>();
+        builder.Services.AddScoped<IOrganizationRepository, MemoryOrganizationRepository>();
+        builder.Services.AddScoped<IPersonService, MemoryPersonService>();
         
         builder.Services.AddExceptionHandler<ProblemDetailsExceptionHandler>();    
         builder.Services.AddProblemDetails();
@@ -30,10 +38,9 @@ public class Program
             app.MapOpenApi();
         }
         
-        app.UseExceptionHandler();  
-        app.MapControllers();
         app.UseHttpsRedirection();
         app.UseAuthorization();
+        app.UseExceptionHandler();  
         app.MapControllers();
         app.Run();
     }

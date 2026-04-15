@@ -12,20 +12,14 @@ public class MemoryPersonService(IContactUnitOfWork unitOfWork) : IPersonService
         return PersonDto.FromPerson(entity);
     }
 
-    //TODO: UpdatePerson(PersonDto p) or UpdatePerson(UpdatePersonDto personDto)?
-    //TODO: If UpdatePersonDto, how to UpdatePersonDto to entity? (lab4)
-    public Task<Person> UpdatePerson(PersonDto personDto)
+    public async Task<Person> UpdatePerson(UpdatePersonDto personDto)
     {
-        throw new NotImplementedException();
-    }
-    
-    public Task<Person> UpdatePerson(UpdatePersonDto personDto)
-    {
-        throw new NotImplementedException();
-        // var entity = 
-        // entity = await unitOfWork.Persons.UpdateAsync(entity);
-        // await unitOfWork.SaveChangesAsync();
-        // return entity;
+        var current = await unitOfWork.Persons.GetByIdAsync(personDto.Id);
+        personDto.UpdateEntity(current);
+        
+        var updated = await unitOfWork.Persons.UpdateAsync(current);
+        await unitOfWork.SaveChangesAsync();
+        return updated;
     }
 
     public async Task<Person> AddPerson(CreatePersonDto personDto)
@@ -58,11 +52,6 @@ public class MemoryPersonService(IContactUnitOfWork unitOfWork) : IPersonService
         throw new NotImplementedException();
     }
 
-    public Task<Person> CreatePerson(PersonDto personDto)
-    {
-        throw new NotImplementedException();
-    }
-
     public Task DeletePerson(Guid id)
     {
         throw new NotImplementedException();
@@ -73,13 +62,13 @@ public class MemoryPersonService(IContactUnitOfWork unitOfWork) : IPersonService
         throw new NotImplementedException();
     }
 
-    public async Task<Note> AddNote(Guid id, Note note)
+    public async Task<Note> AddNoteToPerson(Guid id, CreateNoteDto noteDto)
     {
         var p = await unitOfWork.Persons.GetByIdAsync(id);
         if (p == null) throw new KeyNotFoundException();
         if (p.Notes == null) p.Notes = new List<Note>();
-        //TODO: NoteDto? (lab5)
+        var note = noteDto.ToEntity();
         p.Notes.Add(note);
-        //TODO: What expected to return? (lab5)
+        return await Task.FromResult(note);
     }
 }

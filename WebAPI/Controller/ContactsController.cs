@@ -22,11 +22,9 @@ public class ContactsController(IPersonService service): ControllerBase
     }
 
     [HttpPut("{id:guid}")]
-    public async Task<IActionResult> UpdatePerson(Guid id, [FromBody] PersonDto dto)
+    public async Task<IActionResult> UpdatePerson(UpdatePersonDto dto)
     {
-        var p = await service.GetById(id);
-        if (p == null) return NotFound();
-        return Ok(await service.UpdatePerson(p));
+        return Ok(await service.UpdatePerson(dto));
     }
     
     [HttpPost]

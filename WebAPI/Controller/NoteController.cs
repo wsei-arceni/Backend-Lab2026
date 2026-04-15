@@ -7,7 +7,6 @@ namespace WebAPI.Controller;
 
 public class NoteController(IPersonService service): ControllerBase
 {
-    // TODO: Note Dto? (lab5)
     [HttpPost("{contactId:guid}/notes")]
     [ProducesResponseType(typeof(NoteDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
