@@ -30,22 +30,18 @@ public class MemoryGenericRepository<T>: IGenericRepositoryAsync<T> where T: Ent
 
     public Task<T> AddAsync(T entity)
     {
-        if (entity.Id == Guid.Empty)
-        {
-            entity.Id = Guid.NewGuid();
-        }
+        entity.Id = Guid.NewGuid();
         _data[entity.Id] = entity;
+        if (entity is Contact contact) contact.CreatedAt = DateTime.UtcNow;
         return Task.FromResult(entity);
     }
 
     public Task<T> UpdateAsync(T entity)
     {
-        if (_data.ContainsKey(entity.Id))
-        {
-            _data[entity.Id] = entity;
-            return Task.FromResult(_data[entity.Id]);
-        }
-        throw new KeyNotFoundException();
+        if (!_data.ContainsKey(entity.Id)) throw new KeyNotFoundException();
+        _data[entity.Id] = entity;
+        if (entity is Contact contact) contact.UpdatetAt = DateTime.UtcNow;
+        return Task.FromResult(_data[entity.Id]);
     }
 
     public Task RemoveByIdAsync(Guid id)
