@@ -8,7 +8,7 @@ public class MemoryPersonRepository: MemoryGenericRepository<Person>, IPersonRep
 {
     public Task<IEnumerable<Person>> GetByEmployerAsync(Guid companyId)
     {
-        return Task.FromResult(_data.Values.Where(p => p.Employer != null && p.Employer.Id == companyId));
+        return Task.FromResult(_data.Values.Where(p => p.Company != null && p.Company.Id == companyId));
     }
 
     public Task<IEnumerable<Person>> GetByOrganizationAsync(Guid organizationId)
