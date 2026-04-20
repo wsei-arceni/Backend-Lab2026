@@ -15,7 +15,7 @@ public class ContactsController(IPersonService service): ControllerBase
     }
     
     [HttpGet("{id:guid}")]
-    public async Task<IActionResult> GetPerson(Guid id)
+    public async Task<IActionResult> GetPerson([FromRoute] Guid id)
     {
         var dto = await service.GetById(id);
         if (dto == null) return NotFound();
@@ -23,18 +23,26 @@ public class ContactsController(IPersonService service): ControllerBase
     }
 
     [HttpPut("{id:guid}")]
-    public async Task<IActionResult> UpdatePerson(Guid id, UpdatePersonDto dto)
+    public async Task<IActionResult> UpdatePerson([FromRoute] Guid id, [FromBody] UpdatePersonDto dto)
     {
         return Ok(await service.UpdatePerson(id, dto));
     }
+    
+    [HttpGet("{id:guid}/notes")]
+    public async Task<IActionResult> GetNotes([FromRoute] Guid id)
+    {
+        var person = await service.GetById(id);
+        return Ok(person.Notes);
+    }
 
     [HttpPost("{id:guid}/notes")]
-    public async Task<IActionResult> AddNote(Guid id, CreateNoteDto dto)
+    public async Task<IActionResult> AddNote([FromRoute] Guid id, [FromBody] CreateNoteDto dto)
     {
         return Ok(await service.AddNote(id, dto));
     }
+    
     [HttpPost]
-    public async Task<IActionResult> Create(CreatePersonDto dto)
+    public async Task<IActionResult> Create([FromBody] CreatePersonDto dto)
     {
         var result = await service.AddPerson(dto);
         return CreatedAtAction(nameof(GetPerson), new { id = result.Id }, result);
