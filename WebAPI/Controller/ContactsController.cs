@@ -13,6 +13,7 @@ public class ContactsController(IPersonService service): ControllerBase
     {
         return Ok(await service.FindAllPeoplePaged(page, size));
     }
+    
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetPerson(Guid id)
     {
@@ -22,11 +23,16 @@ public class ContactsController(IPersonService service): ControllerBase
     }
 
     [HttpPut("{id:guid}")]
-    public async Task<IActionResult> UpdatePerson(UpdatePersonDto dto)
+    public async Task<IActionResult> UpdatePerson(Guid id, UpdatePersonDto dto)
     {
-        return Ok(await service.UpdatePerson(dto));
+        return Ok(await service.UpdatePerson(id, dto));
     }
-    
+
+    [HttpPost("{id:guid}/notes")]
+    public async Task<IActionResult> AddNote(Guid id, CreateNoteDto dto)
+    {
+        return Ok(await service.AddNote(id, dto));
+    }
     [HttpPost]
     public async Task<IActionResult> Create(CreatePersonDto dto)
     {

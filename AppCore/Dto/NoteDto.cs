@@ -27,6 +27,7 @@ public record CreateNoteDto(
     {
         return new Note
         {
+            Id = Guid.NewGuid(),
             Content = Content,
             CreatedAt = DateTime.UtcNow,
             CreatedBy = CreatedBy

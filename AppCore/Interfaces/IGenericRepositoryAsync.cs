@@ -3,7 +3,7 @@ using AppCore.Models;
 
 namespace AppCore.Interfaces;
 
-public interface IGenericRepositoryAsync<T> where T : class
+public interface IGenericRepositoryAsync<T> where T : EntityBase
 {
     Task<T?> GetByIdAsync(Guid id);
     Task<T?> FindByIdAsync(Guid id);

@@ -15,7 +15,7 @@ public class NoteController(IPersonService service): ControllerBase
         [FromRoute] Guid contactId,
         [FromBody] CreateNoteDto dto)
     {
-        var note = await service.AddNoteToPerson(contactId, dto);
+        var note = await service.AddNote(contactId, dto);
         return CreatedAtAction(
             nameof(GetNotes),
             new { contactId },

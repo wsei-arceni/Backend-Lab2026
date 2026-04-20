@@ -30,9 +30,12 @@ public class MemoryGenericRepository<T>: IGenericRepositoryAsync<T> where T: Ent
 
     public Task<T> AddAsync(T entity)
     {
-        entity.Id = Guid.NewGuid();
+        if (entity.Id == Guid.Empty)
+        {
+            entity.Id = Guid.NewGuid();
+        }
         _data[entity.Id] = entity;
-        return Task.FromResult(_data[entity.Id]);
+        return Task.FromResult(entity);
     }
 
     public Task<T> UpdateAsync(T entity)

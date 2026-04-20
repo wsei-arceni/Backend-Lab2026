@@ -12,9 +12,9 @@ public class MemoryPersonService(IContactUnitOfWork unitOfWork) : IPersonService
         return PersonDto.FromPerson(entity);
     }
 
-    public async Task<Person> UpdatePerson(UpdatePersonDto personDto)
+    public async Task<Person> UpdatePerson(Guid id, UpdatePersonDto personDto)
     {
-        var current = await unitOfWork.Persons.GetByIdAsync(personDto.Id);
+        var current = await unitOfWork.Persons.GetByIdAsync(id);
         personDto.UpdateEntity(current);
         
         var updated = await unitOfWork.Persons.UpdateAsync(current);
@@ -33,17 +33,7 @@ public class MemoryPersonService(IContactUnitOfWork unitOfWork) : IPersonService
     public async Task<PagedResult<PersonDto>> FindAllPeoplePaged(int page, int size)
     {
         var people = await unitOfWork.Persons.FindPagedAsync(page, size);
-        var items=  people.Items.Select(p => new PersonDto()
-            {
-                Id = p.Id,
-                FirstName = p.FirstName,
-                LastName = p.LastName, 
-                Email = p.Email,
-                Phone = p.Phone,
-                Status = p.Status
-            }
-                
-        );
+        var items = people.Items.Select(PersonDto.FromPerson);
         return new PagedResult<PersonDto>(items.ToList(), people.TotalCount, people.Page, people.PageSize);
     }
 
@@ -62,7 +52,7 @@ public class MemoryPersonService(IContactUnitOfWork unitOfWork) : IPersonService
         throw new NotImplementedException();
     }
 
-    public async Task<Note> AddNoteToPerson(Guid id, CreateNoteDto noteDto)
+    public async Task<Note> AddNote(Guid id, CreateNoteDto noteDto)
     {
         var p = await unitOfWork.Persons.GetByIdAsync(id);
         if (p == null) throw new KeyNotFoundException();

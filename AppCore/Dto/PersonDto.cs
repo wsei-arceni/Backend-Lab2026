@@ -10,15 +10,25 @@ public record PersonDto : ContactBaseDto
     public string? Position { get; init; }
     public DateTime? BirthDate { get; init; }
     public Gender Gender { get; init; }
-    public Guid? EmployerId { get; init; }
     public static PersonDto FromPerson(Person person) => new()
     {
+        Id = person.Id,
         FirstName = person.FirstName,
         LastName = person.LastName,
+        Email = person.Email,
+        Phone = person.Phone,
         Position = person.Position,
         BirthDate = person.BirthDate,
         Gender = person.Gender,
-        Notes = new List<NoteDto>()
+        Status = person.Status,
+        Address = person.Address != null ? new AddressDto(
+            person.Address.Street,
+            person.Address.City,
+            person.Address.PostalCode,
+            person.Address.Country,
+            person.Address.Type
+        ) : null,
+        Notes = person.Notes?.Select(NoteDto.FromNote).ToList() ?? new List<NoteDto>()
     };
 }
 
@@ -45,17 +55,16 @@ public record CreatePersonDto(
             BirthDate = BirthDate,
             Address = new Address()
             {
-                City = Address?.City,
-                Street = Address?.Street,
-                PostalCode = Address?.PostalCode,
-                Country = Address?.Country,
+                City = Address?.City ?? string.Empty,
+                Street = Address?.Street ?? string.Empty,
+                PostalCode = Address?.PostalCode ?? string.Empty,
+                Country = Address?.Country ?? string.Empty,
             }
         };
     }
 };
 
 public record UpdatePersonDto(
-    Guid Id,
     string? FirstName,
     string? LastName,
     string? Email,

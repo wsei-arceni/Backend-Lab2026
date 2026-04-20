@@ -3,8 +3,12 @@
 GET {{WebApi_HostAddress}}/api/contacts
 Accept: application/json
 
-###
-GET {{WebApi_HostAddress}}/api/contacts/"wstaw znany guid"
+### Zoe Koval
+GET {{WebApi_HostAddress}}/api/contacts/a98f3383-0bf9-4e96-9b6f-cfbf2f4906af
+Accept: application/json
+
+### Mike Schmidt
+GET {{WebApi_HostAddress}}/api/contacts/fd3857b4-3c82-4010-8800-cbdbaaa93351
 Accept: application/json
 
 ###
@@ -17,8 +21,12 @@ Content-Type: application/json
   "Email": "Albert@wsei.edu.pl",
   "phone": "+48451514165"
 }
-###
 
+### Albert Coval (if created)
+GET {{WebApi_HostAddress}}/api/contacts/49592f29-ed9a-4d23-a826-8835504a04c3
+Accept: application/json
+
+###
 POST {{WebApi_HostAddress}}/api/contacts
 Content-Type: application/json
 
@@ -29,12 +37,14 @@ Content-Type: application/json
 
 ###
 
-POST {{WebApi_HostAddress}}/api/contacts/3d54091d-abc8-49ec-9590-93ad3ed5458f/notes
+POST {{WebApi_HostAddress}}/api/contacts/49592f29-ed9a-4d23-a826-8835504a04c3/notes
 Content-Type: application/json
 
 {
-  "content": "New note"
+  "content": "IT'S ME",
+  "CreatedBy": "Admin"
 }
+
 ###
 GET {{WebApi_HostAddress}}/api/contacts/3d54091d-abc8-49ec-9590-93ad3ed5458f/notes
 Content-Type: application/json

@@ -1,5 +1,6 @@
 ﻿using AppCore.Interfaces;
 using AppCore.Models;
+using AppCore.ValueObjects;
 using Infrastructure.Memory;
 
 namespace UnitTest;
