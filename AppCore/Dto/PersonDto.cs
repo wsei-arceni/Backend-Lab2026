@@ -35,7 +35,7 @@ public record PersonDto : ContactBaseDto
 public record CreatePersonDto(
     string FirstName,
     string LastName,
-    string MiddleName,
+    string? MiddleName,
     string Email,
     string Phone,
     string? Position,
