@@ -1,6 +1,7 @@
 using AppCore.Interfaces;
 using AppCore.Module;
 using FluentValidation.AspNetCore;
+using Infrastructure;
 using Infrastructure.Memory;
 
 namespace WebAPI;
@@ -14,13 +15,19 @@ public class Program
         builder.Services.AddAuthorization();
         builder.Services.AddContactsModule(builder.Configuration);
         builder.Services.AddMemoryCache();
+
         
-        builder.Services.AddSingleton<ICompanyRepository, MemoryCompanyRepository>();
-        builder.Services.AddSingleton<IContactRepository, MemoryContactRepository>();
-        builder.Services.AddSingleton<IContactUnitOfWork, MemoryContactUnitOfWork>();
-        builder.Services.AddSingleton<IPersonRepository, MemoryPersonRepository>();
-        builder.Services.AddSingleton<IOrganizationRepository, MemoryOrganizationRepository>();
-        builder.Services.AddSingleton<IPersonService, MemoryPersonService>();
+        builder.Services.AddContactsEfModule(builder.Configuration);
+        // TODO: Is AddContactsCoreModule same as AddContactsMemoryModule?
+        // builder.Services.AddContactsCoreModule(builder.Configuration);
+        builder.Services.AddContactsMemoryModule();
+        
+        // builder.Services.AddSingleton<ICompanyRepository, MemoryCompanyRepository>();
+        // builder.Services.AddSingleton<IContactRepository, MemoryContactRepository>();
+        // builder.Services.AddSingleton<IContactUnitOfWork, MemoryContactUnitOfWork>();
+        // builder.Services.AddSingleton<IPersonRepository, MemoryPersonRepository>();
+        // builder.Services.AddSingleton<IOrganizationRepository, MemoryOrganizationRepository>();
+        // builder.Services.AddSingleton<IPersonService, MemoryPersonService>();
         
         builder.Services.AddExceptionHandler<ProblemDetailsExceptionHandler>();    
         builder.Services.AddProblemDetails();

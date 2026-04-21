@@ -33,7 +33,7 @@ public class MemoryGenericRepositoryTest
         await _repo.AddAsync(person1);
         await _repo.AddAsync(person2);
         // Act
-        var result = await _repo.FindAllAsync();
+        var result = await _repo.GetAllAsync();
         // Assert
         Assert.NotNull(result);
         Assert.True(result.Count() >= 2);

@@ -51,5 +51,5 @@ public class CreatePersonDtoValidator : AbstractValidator<CreatePersonDto>
     private async Task<bool> EmployerExistsAsync(
         Guid? employerId,
         CancellationToken ct) =>
-        await _companyRepository.FindByIdAsync(employerId ?? Guid.Empty) is not null;
+        await _companyRepository.GetByIdAsync(employerId ?? Guid.Empty) is not null;
 }

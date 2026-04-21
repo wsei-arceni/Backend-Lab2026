@@ -23,7 +23,7 @@ Content-Type: application/json
 }
 
 ### Albert Coval (if created)
-GET {{WebApi_HostAddress}}/api/contacts/49592f29-ed9a-4d23-a826-8835504a04c3
+GET {{WebApi_HostAddress}}/api/contacts/0aad2f2c-891d-42a8-8081-af97ac7ae1ff
 Accept: application/json
 
 ###
@@ -36,8 +36,7 @@ Content-Type: application/json
 }
 
 ###
-
-POST {{WebApi_HostAddress}}/api/contacts/49592f29-ed9a-4d23-a826-8835504a04c3/notes
+POST {{WebApi_HostAddress}}/api/contacts/0aad2f2c-891d-42a8-8081-af97ac7ae1ff/notes
 Content-Type: application/json
 
 {
@@ -46,7 +45,11 @@ Content-Type: application/json
 }
 
 ###
-GET {{WebApi_HostAddress}}/api/contacts/3d54091d-abc8-49ec-9590-93ad3ed5458f/notes
+GET {{WebApi_HostAddress}}/api/contacts/0aad2f2c-891d-42a8-8081-af97ac7ae1ff/notes
+Content-Type: application/json
+
+###
+DELETE {{WebApi_HostAddress}}/api/contacts/0aad2f2c-891d-42a8-8081-af97ac7ae1ff/notes/dd52b613-41cb-4ef9-a9aa-8924ef8301c0
 Content-Type: application/json
 
 ###

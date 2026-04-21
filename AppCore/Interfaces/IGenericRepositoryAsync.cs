@@ -6,8 +6,7 @@ namespace AppCore.Interfaces;
 public interface IGenericRepositoryAsync<T> where T : EntityBase
 {
     Task<T?> GetByIdAsync(Guid id);
-    Task<T?> FindByIdAsync(Guid id);
-    Task<IEnumerable<T>> FindAllAsync();
+    Task<IEnumerable<T>> GetAllAsync();
     Task<PagedResult<T>> FindPagedAsync(int page, int pageSize);
     Task<T> AddAsync(T entity);
     Task<T> UpdateAsync(T entity);

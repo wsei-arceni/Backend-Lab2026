@@ -13,10 +13,8 @@ public class MemoryGenericRepository<T>: IGenericRepositoryAsync<T> where T: Ent
         var result = _data.TryGetValue(id, out var value) ? value : null;
         return Task.FromResult(result);
     }
-
-    public Task<T?> FindByIdAsync(Guid id) => GetByIdAsync(id);
-
-    public Task<IEnumerable<T>> FindAllAsync()
+    
+    public Task<IEnumerable<T>> GetAllAsync()
     {
         IEnumerable<T> result = _data.Values.ToList();
         return Task.FromResult(result);
