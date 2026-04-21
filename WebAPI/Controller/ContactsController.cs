@@ -41,6 +41,13 @@ public class ContactsController(IPersonService service): ControllerBase
         return Ok(await service.AddNote(id, dto));
     }
     
+    [HttpDelete("{userId:guid}/notes/{noteId:guid}")]
+    public async Task<IActionResult> DeleteNote([FromRoute] Guid userId, [FromRoute] Guid noteId)
+    {
+        await service.DeleteNote(userId, noteId);
+        return NoContent();
+    }
+    
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreatePersonDto dto)
     {

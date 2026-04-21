@@ -1,4 +1,5 @@
 using AppCore.Dto;
+using AppCore.Exceptions;
 using AppCore.Interfaces;
 using AppCore.Models;
 
@@ -55,10 +56,20 @@ public class MemoryPersonService(IContactUnitOfWork unitOfWork) : IPersonService
     public async Task<Note> AddNote(Guid id, CreateNoteDto noteDto)
     {
         var p = await unitOfWork.Persons.GetByIdAsync(id);
-        if (p == null) throw new KeyNotFoundException();
+        if (p == null) throw new ContactNotFoundException($"Person with id={id} not found!");
         if (p.Notes == null) p.Notes = new List<Note>();
         var note = noteDto.ToEntity();
         p.Notes.Add(note);
         return await Task.FromResult(note);
+    }
+
+    public async Task DeleteNote(Guid userId, Guid noteId)
+    {
+        var p = await unitOfWork.Persons.GetByIdAsync(userId);
+        if (p == null) throw new ContactNotFoundException($"Person with id={userId} not found!");
+        if (p.Notes == null) return;
+        var note = p.Notes.FirstOrDefault(n => n.Id == noteId);
+        if (note == null) return;
+        p.Notes.Remove(note);
     }
 }

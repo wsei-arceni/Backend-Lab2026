@@ -13,4 +13,5 @@ public interface IPersonService
     Task DeletePerson(Guid id);
     Task AddTag(Guid id, Tag tag);
     Task<Note> AddNote(Guid id, CreateNoteDto noteDto);
+    Task DeleteNote(Guid userId, Guid noteId);
 }

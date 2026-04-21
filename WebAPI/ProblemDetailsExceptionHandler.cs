@@ -4,8 +4,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace WebAPI;
 
-public class ProblemDetailsExceptionHandler(
-    ProblemDetailsFactory factory, ILogger<ProblemDetailsExceptionHandler> logger) : IExceptionHandler
+public class ProblemDetailsExceptionHandler(ProblemDetailsFactory factory, ILogger<ProblemDetailsExceptionHandler> logger) : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception exception, CancellationToken cancellationToken)
     {
