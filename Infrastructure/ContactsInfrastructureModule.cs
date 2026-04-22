@@ -16,11 +16,12 @@ public static class ContactsInfrastructureModule
     public static IServiceCollection AddContactsEfModule(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<ICompanyRepository, EfCompanyRepository>();
-        //zarejestruj pozostałe repozytoria podobnie jak wyżej
+        services.AddScoped<IPersonRepository, EfPersonRepository>();
+        // TODO: Add rest repositories
         services.AddScoped<IContactUnitOfWork, EfContactsUnitOfWork>();
         services.AddDbContext<ContactsDbContext>(options =>
             options.UseSqlite(
-                configuration.GetConnectionString("CrmDb")));
+                configuration.GetConnectionString("DefaultConnection")));
 	        
         services.AddIdentity<CrmUser, CrmRole>(options =>
             {

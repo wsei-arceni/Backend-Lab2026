@@ -1,6 +1,7 @@
 ﻿using AppCore.Models;
 using AppCore.ValueObjects;
 using Infrastructure.EntityFramework.Entities;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,10 +14,12 @@ public class ContactsDbContext: IdentityDbContext<CrmUser, CrmRole, string>
     public DbSet<Company> Companies { get; set; }
     public DbSet<Organization> Organizations { get; set; }
     
+    /* TODO: Caused error for some reason
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite("data source=STRING");
+        optionsBuilder.UseSqlite("data source=contacts.db");
     }
+    */
 
     public ContactsDbContext() { }
 
@@ -31,7 +34,6 @@ public class ContactsDbContext: IdentityDbContext<CrmUser, CrmRole, string>
             entity.Property(u => u.FirstName).HasMaxLength(100);
             entity.Property(u => u.LastName).HasMaxLength(100);
             entity.Property(u => u.Department).HasMaxLength(100);
-            entity.HasIndex(u => u.Email).IsUnique();
         });
         
         builder.Entity<CrmRole>(entity =>
@@ -64,7 +66,14 @@ public class ContactsDbContext: IdentityDbContext<CrmUser, CrmRole, string>
             .HasOne(p => p.Organization)
             .WithMany(e => e.Members);
 
+        builder.Entity<Person>()
+            .HasOne(p => p.Company)
+            .WithMany(c => c.Employees);
         
+        builder.Entity<Company>()
+            .HasOne(c => c.PrimaryContact)
+            .WithMany();
+
         builder.Entity<Organization>()
             .HasMany(o => o.Members)
             .WithOne(p => p.Organization);
@@ -72,7 +81,7 @@ public class ContactsDbContext: IdentityDbContext<CrmUser, CrmRole, string>
         builder.Entity<Company>(entity =>
         {
             entity.HasData(
-                new Company()
+                new 
                 {
                     Id = Guid.Parse("516A34D7-CCFB-4F20-85F3-62BD0F3AF271"),
                     Name = "WSEI",
@@ -80,11 +89,33 @@ public class ContactsDbContext: IdentityDbContext<CrmUser, CrmRole, string>
                     Phone = "123567123",
                     Email = "biuro@wsei.edu.pl",
                     Website = "https://wsei.edu.pl",
+                    Status = ContactStatus.Active,
+                    CreatedAt = new DateTime(2024, 1, 1)
                 }
             );
         });
         
-        var address = new
+        var companyAddress = new
+        {
+            Street = "ul. Św. Filipa 17",
+            City = "Kraków",
+            PostalCode = "31-150",
+            Country = "Poland",
+            Type = AddressType.Correspondence,
+            ContactId = Guid.Parse("516A34D7-CCFB-4F20-85F3-62BD0F3AF271")
+        };
+        
+        var ewaAddress = new
+        {
+            Street = "ul. Warszawska 10",
+            City = "Kielce",
+            PostalCode = "25-001",
+            Country = "Poland",
+            Type = AddressType.Correspondence,
+            ContactId = Guid.Parse("B4DCB17C-F875-43F8-9D66-36597895A466")
+        };
+        
+        var adamAddress = new
         {
             City = "Kraków",
             Country = "Poland",
@@ -110,8 +141,7 @@ public class ContactsDbContext: IdentityDbContext<CrmUser, CrmRole, string>
                     Phone = "123456789",
                     BirthDate = DateTime.Parse("2001-01-11"),
                     Position = "Programista",
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now
+                    CreatedAt = DateTime.Now
                 },
                 new 
                 {
@@ -124,13 +154,12 @@ public class ContactsDbContext: IdentityDbContext<CrmUser, CrmRole, string>
                     Phone = "123123123",
                     BirthDate = DateTime.Parse("2001-01-11"),
                     Position = "Tester",
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now
+                    CreatedAt = DateTime.Now
                 });
         });
 
         builder.Entity<Contact>()
             .OwnsOne(c => c.Address)
-            .HasData(address);
+            .HasData(adamAddress, companyAddress, ewaAddress);
     }
 }

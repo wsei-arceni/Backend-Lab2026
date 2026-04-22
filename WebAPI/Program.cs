@@ -20,7 +20,7 @@ public class Program
         builder.Services.AddContactsEfModule(builder.Configuration);
         // TODO: Is AddContactsCoreModule same as AddContactsMemoryModule?
         // builder.Services.AddContactsCoreModule(builder.Configuration);
-        builder.Services.AddContactsMemoryModule();
+        // builder.Services.AddContactsMemoryModule();
         
         // builder.Services.AddSingleton<ICompanyRepository, MemoryCompanyRepository>();
         // builder.Services.AddSingleton<IContactRepository, MemoryContactRepository>();
