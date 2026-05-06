@@ -5,7 +5,8 @@ namespace Infrastructure.EntityFramework.UnitOfWork;
 
 public class EfContactsUnitOfWork(
     IPersonRepository personRepository,
-    // Rest repositories
+    ICompanyRepository companyRepository,
+    IOrganizationRepository organizationRepository,
     ContactsDbContext context
 ): IContactUnitOfWork
 {
@@ -13,8 +14,8 @@ public class EfContactsUnitOfWork(
 	
     public IPersonRepository Persons => personRepository;
 
-    public ICompanyRepository Companies { get; }
-    public IOrganizationRepository Organizations { get; }
+    public ICompanyRepository Companies => companyRepository;
+    public IOrganizationRepository Organizations => organizationRepository;
 
     public Task<int> SaveChangesAsync()
     {

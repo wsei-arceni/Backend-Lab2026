@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Infrastructure.EntityFramework.Entities;
 
-public class CrmUser:  IdentityUser, ISystemUser
+public class CrmUser: IdentityUser, ISystemUser
 {
     public required string FirstName { get; set; }
     public required string LastName { get; set; }
     public required string FullName { get; set; }
-    public required string Email { get; set; }
+    public override string Email { get; set; } = string.Empty;
     public required string Department { get; set; }
     public UserRole Role { get; set; }
     public required SystemUserStatus Status { get; set; }

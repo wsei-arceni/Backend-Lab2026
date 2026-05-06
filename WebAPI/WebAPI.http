@@ -3,6 +3,10 @@
 GET {{WebApi_HostAddress}}/api/contacts
 Accept: application/json
 
+###
+GET {{WebApi_HostAddress}}/api/contacts?page=0&size=50
+Accept: application/json
+
 ### Zoe Koval
 GET {{WebApi_HostAddress}}/api/contacts/a98f3383-0bf9-4e96-9b6f-cfbf2f4906af
 Accept: application/json
@@ -16,9 +20,9 @@ POST {{WebApi_HostAddress}}/api/contacts
 Content-Type: application/json
 
 {
-  "firstName": "Albert",
-  "lastName" : "Coval",
-  "Email": "Albert@wsei.edu.pl",
+  "firstName": "William",
+  "lastName" : "Dodwell",
+  "Email": "wd@wsei.edu.pl",
   "phone": "+48451514165"
 }
 
@@ -53,3 +57,17 @@ DELETE {{WebApi_HostAddress}}/api/contacts/0aad2f2c-891d-42a8-8081-af97ac7ae1ff/
 Content-Type: application/json
 
 ###
+
+POST {{WebApi_HostAddress}}/api/auth/login
+Content-Type: application/json
+
+{
+   "email": "jan.kowalski@crm.pl",
+    "password": "Manager@123!"
+}
+
+###
+
+GET {{WebApi_HostAddress}}/api/contacts
+Accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjkzQTdGRkRELTA1N0YtNDAyMS05QzY4LUZFMDY5NTFGRkE2NSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6Imphbi5rb3dhbHNraUBjcm0ucGwiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9naXZlbm5hbWUiOiJKYW4iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9zdXJuYW1lIjoiS293YWxza2kiLCJkZXBhcnRtZW50IjoiU2FsZXMiLCJqdGkiOiI1YjE1MTllNC0zOTRiLTQ4MTgtOGRiNS01YThhYmYyZmMwNzYiLCJpYXQiOiIxNzc4MTAwMDc3IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiU2FsZXNNYW5hZ2VyIiwibmJmIjoxNzc4MTAwMDc3LCJleHAiOjE3NzgxMDM2NzcsImlzcyI6IklkZWlzQ3JtQXBpIiwiYXVkIjoiQ3JtQ2xpZW50In0.SxLn6d6nqW2haab7YfdQH5smzXLnkF3JbHTyT-v-U4I

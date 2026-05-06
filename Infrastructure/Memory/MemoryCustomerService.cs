@@ -11,21 +11,21 @@ public class MemoryCustomerService: ICustomerService
         [
         new Customer()
         {
-            Id = 1,
+            Id = new Guid("516A34D7-CCFB-4F20-85F3-62BD0F3AF270"),
             FirstName = "Joey",
             LastName = "Drew",
             Email = "Jo.D@mail.com",
             Phone = "123456789",
-            AddressId = 1
+            AddressId = new Guid("516A34D7-CCFB-4F20-85F3-62BD0F3AF271")
         },
         new Customer()
         {
-            Id = 2,
+            Id = new Guid("516A34D7-CCFB-4F20-85F3-62BD0F3AF271"),
             FirstName = "William",
             LastName = "Afton",
             Email = "Will.Afton@mail.com",
             Phone = "987654321",
-            AddressId = 2
+            AddressId = new Guid("516A34D7-CCFB-4F20-85F3-62BD0F3AF271")
         }
         ];
     }

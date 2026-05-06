@@ -1,6 +1,7 @@
 ﻿using AppCore.Models;
 using AppCore.ValueObjects;
 using Infrastructure.EntityFramework.Entities;
+using Infrastructure.Security;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -13,13 +14,14 @@ public class ContactsDbContext: IdentityDbContext<CrmUser, CrmRole, string>
     public DbSet<Person> Persons { get; set; }
     public DbSet<Company> Companies { get; set; }
     public DbSet<Organization> Organizations { get; set; }
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
     
-    /* TODO: Caused error for some reason
+    /* TODO: Caused error for some reason */
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseSqlite("data source=contacts.db");
     }
-    */
+    
 
     public ContactsDbContext() { }
 
@@ -97,6 +99,7 @@ public class ContactsDbContext: IdentityDbContext<CrmUser, CrmRole, string>
         
         var companyAddress = new
         {
+            Id = Guid.Parse("516A34D7-CCFB-4F20-85F3-62BD0F3AF271"),
             Street = "ul. Św. Filipa 17",
             City = "Kraków",
             PostalCode = "31-150",
@@ -107,6 +110,7 @@ public class ContactsDbContext: IdentityDbContext<CrmUser, CrmRole, string>
         
         var ewaAddress = new
         {
+            Id = Guid.Parse("B4DCB17C-F875-43F8-9D66-36597895A466"),
             Street = "ul. Warszawska 10",
             City = "Kielce",
             PostalCode = "25-001",
@@ -117,6 +121,7 @@ public class ContactsDbContext: IdentityDbContext<CrmUser, CrmRole, string>
         
         var adamAddress = new
         {
+            Id = Guid.Parse("3D54091D-ABC8-49EC-9590-93AD3ED5458F"),
             City = "Kraków",
             Country = "Poland",
             PostalCode = "25-009",
@@ -152,7 +157,7 @@ public class ContactsDbContext: IdentityDbContext<CrmUser, CrmRole, string>
                     Status = ContactStatus.Blocked,
                     Email = "ewa@wsei.edu.pl",
                     Phone = "123123123",
-                    BirthDate = DateTime.Parse("2001-01-11"),
+                    BirthDate = DateTime.Parse("2003-07-11"),
                     Position = "Tester",
                     CreatedAt = DateTime.Now
                 });

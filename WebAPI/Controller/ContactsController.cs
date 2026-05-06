@@ -1,5 +1,7 @@
+using AppCore.Authorization;
 using AppCore.Dto;
 using AppCore.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controller;
@@ -8,8 +10,10 @@ namespace WebAPI.Controller;
 [Route("/api/contacts")]
 public class ContactsController(IPersonService service): ControllerBase
 {
-
-    public async Task<IActionResult> GetAllPersons(int page, int size)
+    
+    [HttpGet("")]
+    [Authorize(Policy = nameof(CrmPolicies.ReadOnlyAccess))]
+    public async Task<IActionResult> GetAllPersons([FromQuery] int page = 0, [FromQuery] int size = 10)
     {
         return Ok(await service.FindAllPeoplePaged(page, size));
     }
@@ -32,6 +36,7 @@ public class ContactsController(IPersonService service): ControllerBase
     public async Task<IActionResult> GetNotes([FromRoute] Guid id)
     {
         var person = await service.GetById(id);
+        if (person == null) return NotFound();
         return Ok(person.Notes);
     }
 

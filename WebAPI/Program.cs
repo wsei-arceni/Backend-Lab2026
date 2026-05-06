@@ -3,25 +3,24 @@ using AppCore.Module;
 using FluentValidation.AspNetCore;
 using Infrastructure;
 using Infrastructure.Memory;
+using Infrastructure.Security;
 
 namespace WebAPI;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
         
-        builder.Services.AddAuthorization();
         builder.Services.AddContactsModule(builder.Configuration);
-        builder.Services.AddMemoryCache();
-
-        
         builder.Services.AddContactsEfModule(builder.Configuration);
-        // TODO: Is AddContactsCoreModule same as AddContactsMemoryModule?
+        builder.Services.AddMemoryCache();
+        builder.Services.AddSingleton<JwtSettings>();
+        builder.Services.AddJwt(new JwtSettings(builder.Configuration));
+
         // builder.Services.AddContactsCoreModule(builder.Configuration);
         // builder.Services.AddContactsMemoryModule();
-        
         // builder.Services.AddSingleton<ICompanyRepository, MemoryCompanyRepository>();
         // builder.Services.AddSingleton<IContactRepository, MemoryContactRepository>();
         // builder.Services.AddSingleton<IContactUnitOfWork, MemoryContactUnitOfWork>();
@@ -43,6 +42,10 @@ public class Program
         if (app.Environment.IsDevelopment())
         {
             app.MapOpenApi();
+            using var scope = app.Services.CreateScope(); // zasięg dostepu do kontenera DI
+            // "wyciągniecie" z kontenera instacji klasy implementującej IDataSeeder
+            var seeder = scope.ServiceProvider.GetRequiredService<IDataSeeder>();
+            await seeder.SeedAsync();    // wywołanie metody Seedera
         }
         
         app.UseHttpsRedirection();
