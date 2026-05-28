@@ -506,7 +506,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("3d54091d-abc8-49ec-9590-93ad3ed5458f"),
-                            CreatedAt = new DateTime(2026, 5, 6, 17, 35, 3, 43, DateTimeKind.Local).AddTicks(2081),
+                            CreatedAt = new DateTime(2026, 5, 29, 0, 59, 18, 871, DateTimeKind.Local).AddTicks(6673),
                             Email = "adam@wsei.edu.pl",
                             Phone = "123456789",
                             Status = "Active",
@@ -519,7 +519,7 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("b4dcb17c-f875-43f8-9d66-36597895a466"),
-                            CreatedAt = new DateTime(2026, 5, 6, 17, 35, 3, 46, DateTimeKind.Local).AddTicks(2049),
+                            CreatedAt = new DateTime(2026, 5, 29, 0, 59, 18, 873, DateTimeKind.Local).AddTicks(2048),
                             Email = "ewa@wsei.edu.pl",
                             Phone = "123123123",
                             Status = "Blocked",
@@ -600,8 +600,7 @@ namespace Infrastructure.Migrations
                                 });
                         });
 
-                    b.Navigation("Address")
-                        .IsRequired();
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("AppCore.Models.Note", b =>

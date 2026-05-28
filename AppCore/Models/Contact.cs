@@ -6,7 +6,7 @@ public abstract class Contact: EntityBase
 {
     public string Email { get; set; }
     public string Phone { get; set; }
-    public Address Address { get; set; }
+    public Address? Address { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime? UpdatetAt { get; set; }
     public ContactStatus Status { get; set; }
