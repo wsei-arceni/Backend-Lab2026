@@ -8,8 +8,22 @@ namespace WebAPI.Controller;
 
 [ApiController]
 [Route("/api/contacts")]
-public class ContactsController(IPersonService service): ControllerBase
+public class ContactsController(IPersonService service, IContactImportService importService): ControllerBase
 {
+    [HttpPost("import/json")]
+    public async Task<IActionResult> ImportJson([FromBody] ContactImportDto dto)
+    {
+        return Ok(await importService.ImportFromJsonDtoAsync(dto, User.Identity?.Name ?? "System"));
+    }
+
+    [HttpPost("import/csv")]
+    public async Task<IActionResult> ImportCsv(IFormFile file)
+    {
+        if (file == null || file.Length == 0) return BadRequest("File is empty");
+        using var stream = file.OpenReadStream();
+        var result = await importService.ImportFromCsvAsync(stream, User.Identity?.Name ?? "System");
+        return Ok(result);
+    }
     
     [HttpGet("")]
     [Authorize(Policy = nameof(CrmPolicies.ReadOnlyAccess))]

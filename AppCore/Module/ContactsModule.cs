@@ -1,4 +1,6 @@
-﻿using AppCore.Validators;
+﻿using AppCore.Interfaces;
+using AppCore.Services;
+using AppCore.Validators;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +16,7 @@ public static class ContactsModule
     {
         services.AddValidatorsFromAssemblyContaining<CreatePersonDtoValidator>();
         services.AddFluentValidationAutoValidation();
+        services.AddScoped<IContactImportService, ContactImportService>();
         // TODO: Automapper (Lab4)
         // services.AddAutoMapper(typeof(ContactsMappingProfile).Assembly);
         return services;
