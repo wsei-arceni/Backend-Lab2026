@@ -19,7 +19,7 @@ public class ContactsDbContext: IdentityDbContext<CrmUser, CrmRole, string>
     /* TODO: Caused error for some reason */
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite("data source=contacts.db");
+        optionsBuilder.UseSqlite("data source=c:\\data\\crm.db");
     }
     
 
